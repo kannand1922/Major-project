@@ -1,0 +1,72 @@
+/* Container for the category list */
+.category-list-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Create Category button */
+  .create-category-btn {
+    display: block;
+    margin: 0 auto 20px auto;
+    background-color: #1e90ff; /* Blue color */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-category-btn:hover {
+    background-color: #1677aa;
+  }
+  
+  /* Loader container */
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+  
+  /* List of categories */
+  .category-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Individual category card */
+  .category-card {
+    background-color: #fff;
+    border: 1px solid #e8eced;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Category name text */
+  .category-name {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Empty state message */
+  .empty-message {
+    text-align: center;
+    color: #999;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
