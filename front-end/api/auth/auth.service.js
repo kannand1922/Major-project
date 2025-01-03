@@ -1,13 +1,13 @@
-import axios from "axios";
-import { apiPath } from "../../constants";
+import axiosInstance from "../axiosInstance/index"; 
+
 class AuthService {
   async login(val) {
-    const response = await axios.post(`${apiPath}/auth/login`, val);
+    const response = await axiosInstance.post(`/auth/login`, val);
     return response.data;
   }
 
   async signup(val) {
-    const response = await axios.post(`${apiPath}/auth/register`, val);
+    const response = await axiosInstance.post(`/auth/register`, val);
     return response.data;
   }
 }
