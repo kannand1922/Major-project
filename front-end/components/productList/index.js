@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, CircularProgress, Modal, TextField } from "@mui/material";
+import { Button, CircularProgress, Modal, TextField, Box, Typography } from "@mui/material";
 import {
   fetchProducts,
   deleteProduct,
@@ -7,7 +7,6 @@ import {
 } from "../../api/product/productApi";
 import { getCategoryColumns } from "../../api/product/categoryApi";
 import ProductForm from "../productForm";
-import "./productList.css";
 
 const ProductList = ({ categoryName }) => {
   const [products, setProducts] = useState([]);
@@ -34,6 +33,7 @@ const ProductList = ({ categoryName }) => {
     setColumns(colum);
     setLoading(false);
   };
+
   const handleAddProduct = () => setOpenProductForm(true);
 
   const handleEditProduct = (product) => {
@@ -66,10 +66,29 @@ const ProductList = ({ categoryName }) => {
   };
 
   return (
-    <div className="product-list-container">
-      <button className="add-product-btn" onClick={handleAddProduct}>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: 4,
+        bgcolor: "background.default",
+        background: "linear-gradient(to right, #7b4397, #dc2430)",
+        color: "white",
+      }}
+    >
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleAddProduct}
+        sx={{
+          marginBottom: 2,
+          fontWeight: "bold",
+        }}
+      >
         Add Product
-      </button>
+      </Button>
 
       {openProductForm && (
         <ProductForm
@@ -80,34 +99,52 @@ const ProductList = ({ categoryName }) => {
       )}
 
       {loading ? (
-        <div className="loader-container">
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+          }}
+        >
           <CircularProgress />
-        </div>
+        </Box>
       ) : products.length > 0 ? (
-        <div className="product-list">
+        <Box sx={{ display: "grid", gap: 2, gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))" }}>
           {products.map((product) => (
-            <div
-              className="product-card"
+            <Box
               key={product.product_id || product.id}
+              sx={{
+                border: "1px solid #ccc",
+                borderRadius: 2,
+                padding: 2,
+                boxShadow: 1,
+                display: "flex",
+                flexDirection: "column",
+                gap: 1,
+                bgcolor: "white",
+                color: "black",
+              }}
             >
-              <div className="product-details">
+              <Box>
                 {Object.entries(product).map(([key, value], index) => (
-                  <div key={`${key}-${index}`}>
-                    <span>{key}:</span>{" "}
+                  <Typography key={`${key}-${index}`} variant="body2">
+                    <strong>{key}:</strong>{" "}
                     {key === "image_url" ? (
-                      <img
+                      <Box
+                        component="img"
                         src={value}
                         alt="Product"
-                        className="product-image"
+                        sx={{ width: "100%", height: "auto", maxHeight: 150 }}
                       />
                     ) : (
                       value
                     )}
-                  </div>
+                  </Typography>
                 ))}
-              </div>
+              </Box>
 
-              <div className="product-actions">
+              <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
                 <Button
                   variant="outlined"
                   color="primary"
@@ -122,23 +159,35 @@ const ProductList = ({ categoryName }) => {
                 >
                   Delete
                 </Button>
-              </div>
-            </div>
+              </Box>
+            </Box>
           ))}
-        </div>
+        </Box>
       ) : (
-        <div className="empty-message">No products found.</div>
+        <Typography variant="body1" sx={{ textAlign: "center", marginTop: 4 }}>
+          No products found.
+        </Typography>
       )}
 
-      {/* Modal for editing product */}
       {editProduct && (
         <Modal
           open={Boolean(editProduct)}
           onClose={() => setEditProduct(null)}
-          className="edit-modal"
+          sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
         >
-          <div className="modal-content">
-            <h2>Edit Product</h2>
+          <Box
+            sx={{
+              backgroundColor: "white",
+              padding: 4,
+              borderRadius: 2,
+              width: "90%",
+              maxWidth: 500,
+              boxShadow: 3,
+            }}
+          >
+            <Typography variant="h6" sx={{ marginBottom: 2 }}>
+              Edit Product
+            </Typography>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -146,7 +195,7 @@ const ProductList = ({ categoryName }) => {
               }}
             >
               {Object.entries(editProduct).map(([key, value]) => (
-                <div className="form-field" key={key}>
+                <Box sx={{ marginBottom: 2 }} key={key}>
                   <TextField
                     label={key}
                     value={value}
@@ -158,30 +207,24 @@ const ProductList = ({ categoryName }) => {
                     }
                     fullWidth
                   />
-                </div>
+                </Box>
               ))}
-              <div className="form-actions">
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className="save-btn"
-                >
+              <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
+                <Button type="submit" variant="contained" color="primary">
                   Save
                 </Button>
                 <Button
                   variant="outlined"
                   onClick={() => setEditProduct(null)}
-                  className="cancel-btn"
                 >
                   Cancel
                 </Button>
-              </div>
+              </Box>
             </form>
-          </div>
+          </Box>
         </Modal>
       )}
-    </div>
+    </Box>
   );
 };
 

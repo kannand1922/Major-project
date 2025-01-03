@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button, Box, Typography, Alert } from "@mui/material";
-import FormInput from "../../components/formInput";
+import { Button, Box, Typography, Alert, TextField } from "@mui/material";
 import AuthService from "../../api/auth/auth.service";
 import { useRouter } from "next/navigation";
 
@@ -31,38 +30,123 @@ const Signup = () => {
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
-      bgcolor="background.default"
+      sx={{
+        background: "linear-gradient(to right, #7b4397, #dc2430)",
+        padding: "16px",
+      }}
     >
       <Box
         component="form"
         onSubmit={handleSubmit}
-        sx={{ width: 400, padding: 4, boxShadow: 3, bgcolor: "white", borderRadius: 2 }}
+        sx={{
+          width: "100%",
+          maxWidth: "500px",
+          padding: "24px",
+          minHeight: "500px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          backgroundColor: "#ffffff",
+          borderRadius: "8px",
+        }}
       >
-        <Typography variant="h5" mb={2} align="center">
+        <Typography
+          variant="h5"
+          mb={2}
+          align="center"
+          sx={{ fontWeight: "bold", color: "#333", marginTop: "60px"}}
+        >
           Signup
         </Typography>
-        {error && <Alert severity="error">{error}</Alert>}
-        <FormInput
+        {error && (
+          <Alert severity="error" sx={{ marginBottom: "16px" }}>
+            {error}
+          </Alert>
+        )}
+        <TextField
           label="Name"
           name="name"
           value={formData.name}
           onChange={handleChange}
+          fullWidth
+          sx={{
+            marginBottom: "16px",
+            "& .MuiInputBase-root": {
+              borderRadius: "8px",
+              backgroundColor: "#f9f9f9",
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#d9d9d9",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#7b4397",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#dc2430",
+            },
+          }}
         />
-        <FormInput
+        <TextField
           label="Email"
           name="email"
           value={formData.email}
           onChange={handleChange}
           type="email"
+          fullWidth
+          sx={{
+            marginBottom: "16px",
+            "& .MuiInputBase-root": {
+              borderRadius: "8px",
+              backgroundColor: "#f9f9f9",
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#d9d9d9",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#7b4397",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#dc2430",
+            },
+          }}
         />
-        <FormInput
+        <TextField
           label="Password"
           name="password"
           value={formData.password}
           onChange={handleChange}
           type="password"
+          fullWidth
+          sx={{
+            marginBottom: "24px",
+            "& .MuiInputBase-root": {
+              borderRadius: "8px",
+              backgroundColor: "#f9f9f9",
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#d9d9d9",
+            },
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#7b4397",
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#dc2430",
+            },
+          }}
         />
-        <Button type="submit" variant="contained" color="success" fullWidth>
+        <Button
+          type="submit"
+          variant="contained"
+          color="success"
+          fullWidth
+          sx={{
+            fontWeight: "bold",
+            padding: "12px",
+            borderRadius:"8px",
+            backgroundColor: "#28a745",
+            "&:hover": {
+              backgroundColor: "#218838",
+            },
+          }}
+        >
           Signup
         </Button>
       </Box>

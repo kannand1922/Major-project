@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemText,
-} from "@mui/material";
-import { fetchCategories, deleteCategory } from "../../api/product/categoryApi"; // Import new delete API
+import { Button, CircularProgress, Box, Typography } from "@mui/material";
+import { fetchCategories, deleteCategory } from "../../api/product/categoryApi";
 import CategoryForm from "../categoryForm.js";
-import "./category.css";
 import { useRouter } from "next/navigation";
+
 const CategoryList = () => {
   const router = useRouter();
 
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openForm, setOpenForm] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null); // Track selected category for updating
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
     getCategories();
@@ -32,7 +26,7 @@ const CategoryList = () => {
   const handleCreateCategory = () => setOpenForm(true);
 
   const handleDeleteCategory = async (categoryName) => {
-    await deleteCategory(categoryName); // Call delete API
+    await deleteCategory(categoryName);
     getCategories();
   };
 
@@ -42,10 +36,30 @@ const CategoryList = () => {
   };
 
   return (
-    <div className="category-list-container">
-      <button className="create-category-btn" onClick={handleCreateCategory}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: 3,
+        minHeight: "100vh",
+        background: "linear-gradient(to right, #7b4397, #dc2430)",
+      }}
+    >
+      <Button
+        onClick={handleCreateCategory}
+        sx={{
+          backgroundColor: "#4caf50",
+          color: "white",
+          padding: "10px 20px",
+          borderRadius: "5px",
+          fontSize: "16px",
+          fontWeight: "bold",
+          "&:hover": { backgroundColor: "#45a049" },
+        }}
+      >
         Create Category
-      </button>
+      </Button>
 
       {openForm && (
         <CategoryForm
@@ -55,42 +69,99 @@ const CategoryList = () => {
       )}
 
       {loading ? (
-        <div className="loader-container">
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "200px",
+          }}
+        >
           <CircularProgress />
-        </div>
+        </Box>
       ) : categories.length > 0 ? (
-        <div className="category-list">
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 2,
+            marginTop: 3,
+            justifyContent: "center",
+          }}
+        >
           {categories.map((category, index) => (
-            <div key={index} className="category-card">
-              <div
-                className="category-name"
+            <Box
+              key={index}
+              sx={{
+                backgroundColor: "white",
+                borderRadius: 2,
+                boxShadow: 3,
+                padding: 2,
+                width: 250,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 1,
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                "&:hover": {
+                  transform: "scale(1.05)",
+                  boxShadow: 6,
+                },
+              }}
+            >
+              <Typography
                 onClick={() =>
                   router.push(`/products?categoryName=${category.name}`)
                 }
+                sx={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  color: "#333",
+                  textAlign: "center",
+                  cursor: "pointer",
+                  "&:hover": { color: "#dc2430" },
+                }}
               >
                 {category.name}
-              </div>
+              </Typography>
               <Button
                 variant="outlined"
-                color="primary"
+                sx={{
+                  backgroundColor: "#007bff",
+                  color: "white",
+                  "&:hover": { backgroundColor: "#0056b3" },
+                }}
                 onClick={() => handleUpdateCategory(category)}
               >
                 Update
               </Button>
               <Button
                 variant="outlined"
-                color="secondary"
+                sx={{
+                  backgroundColor: "#f44336",
+                  color: "white",
+                  "&:hover": { backgroundColor: "#d32f2f" },
+                }}
                 onClick={() => handleDeleteCategory(category.name)}
               >
                 Delete
               </Button>
-            </div>
+            </Box>
           ))}
-        </div>
+        </Box>
       ) : (
-        <div className="empty-message">No categories found.</div>
+        <Typography
+          sx={{
+            fontSize: 18,
+            color: "white",
+            textAlign: "center",
+            marginTop: 2,
+          }}
+        >
+          No categories found.
+        </Typography>
       )}
-    </div>
+    </Box>
   );
 };
 
