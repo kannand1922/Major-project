@@ -11,6 +11,8 @@ export const fetchProducts = async (categoryId) => {
   }
 };
 
+
+
 // Add a new product to a category
 export const addProduct = async (categoryName, productData) => {
   try {

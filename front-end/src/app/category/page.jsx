@@ -3,13 +3,14 @@
 import CategoryList from "../../../components/categoryList.js";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Navbar from "../../../components/Navbar/index.js";
 const CategoryPage = () => {
 const router = useRouter();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      router.push('/signup'); // Redirect to signup if no token
+      router.push('/signup'); 
     }
   }, []);
   return (

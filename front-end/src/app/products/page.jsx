@@ -2,7 +2,6 @@
 import React,{useEffect} from "react";
 import { useSearchParams } from "next/navigation";
 import ProductList from "../../../components/productList";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 function Page() {
 const router = useRouter();

@@ -23,7 +23,7 @@ const ProductList = ({ categoryName }) => {
   const getProducts = async () => {
     setLoading(true);
     const productList = await fetchProducts(categoryName);
-    setProducts(productList);
+    setProducts(productList.data);
     setLoading(false);
   };
 
