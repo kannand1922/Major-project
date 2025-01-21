@@ -120,7 +120,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div className="min-h-screen p-8 bg-gradient-to-br from-blue-50 to-indigo-50" style={{padding:"130px"}}>
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-center mb-8 animate-bounce">
           <ShoppingCart className="w-8 h-8 mr-2 text-indigo-600" />

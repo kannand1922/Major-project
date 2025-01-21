@@ -56,3 +56,15 @@ export const deleteProduct = async (categoryName, productId) => {
     throw error;
   }
 };
+
+
+
+export const fetchOrders = async () => {
+  try {
+    const response = await axiosInstance.get(`/admin/orders`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching product by ID:", error);
+    throw error;
+  }
+};

@@ -1,7 +1,7 @@
 // pages/CategoryPage.js
 import React, { useState } from "react";
-import CategoryList from "../components/CategoryList";
-import ProductList from "../components/ProductList";
+import CategoryList from "../categoryList.js";
+import ProductList from "../productList/index.js";
 
 const CategoryPage = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);

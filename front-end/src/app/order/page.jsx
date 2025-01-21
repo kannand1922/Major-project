@@ -1,19 +1,19 @@
+"use client"
 import React, { useEffect, useState } from "react";
-import { fetchUserOrders } from "../../api/user";
+import { fetchOrders } from "../../../api/product/productApi";
 import { Download, Package, User, MapPin, ShoppingBag } from "lucide-react";
 
 const OrderDetails = () => {
   const [orderDetails, setOrderDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [expandedOrder, setExpandedOrder] = useState(null);
 
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
       try {
-        const response = await fetchUserOrders(userId);
+        const response = await fetchOrders();
         setOrderDetails(response.orders);
       } catch (error) {
         setError("Failed to load order details");

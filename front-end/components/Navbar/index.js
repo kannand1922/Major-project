@@ -18,21 +18,32 @@ const Navbar = () => {
     setRole(userRole);
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); // Redirect to login if no token
+    }
+  }, []);
+
   const handleNavigation = (item) => {
-    if (item === 'Products') {
-      if (role === 'admin') {
-        router.push('/category');  
+    if (role === '1') {
+      if (item === 'Products') {
+        router.push('/category');
+      } else if (item === 'Order') {
+        router.push('/order');
       } else {
-        router.push('/userCategory');  
+        router.push('/');
       }
-    } else if (item === 'Cart') {
-      router.push('/userCart');  
-    } 
-    else if (item === 'Order') {
-      router.push('/userOrder');  
-    } 
-    else {
-      router.push(`/`);
+    } else {
+      if (item === 'Products') {
+        router.push('/userCategory');
+      } else if (item === 'Cart') {
+        router.push('/userCart');
+      } else if (item === 'Order') {
+        router.push('/userOrder');
+      } else {
+        router.push('/');
+      }
     }
   };
 
@@ -44,7 +55,8 @@ const Navbar = () => {
         </Typography>
         <Box sx={{ display: 'flex', gap: 2 }}>
           {['Home', 'Products', 'Cart', 'Order'].map((item, index) => {
-            if (role === 'admin' && (item === 'Products' || item === 'Cart')) {
+            // Hide Cart for role 1
+            if (role === '1' && item === 'Cart') {
               return null;
             }
 

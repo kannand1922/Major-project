@@ -18,6 +18,8 @@ const Login = () => {
     try {
       const response = await AuthService.login(formData);
       console.log("Login Successful:", response);
+      localStorage.setItem("userId",response?.user?.id)
+      localStorage.setItem("role",response?.user?.role)
       router.push("/category"); // Redirect on success
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");

@@ -26,7 +26,7 @@ const UserCategoryList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-600 to-red-500 p-8 pt-24">
+    <div className="min-h-screen bg-gradient-to-r from-purple-600 to-red-500 p-8 pt-24" style={{padding:"130px"}}>
       <div className="max-w-6xl mx-auto">
         {/* Header with floating animation */}
         <div className="flex items-center justify-center mb-12 animate-float">
