@@ -56,6 +56,7 @@ const Cart = () => {
         initPayment(response.data);
       }
     } catch (error) {
+      navigate.push("/address");
       console.log(error);
     } finally {
       setPaymentLoading(false);

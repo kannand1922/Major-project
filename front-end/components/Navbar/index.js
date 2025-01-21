@@ -2,6 +2,11 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
+import { AppBar, Toolbar, Typography, IconButton, Box } from "@mui/material";
+import HomeIcon from '@mui/icons-material/Home';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import CategoryIcon from '@mui/icons-material/Category';
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -32,54 +37,48 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed w-full z-[9999] bg-black/80 backdrop-blur-lg text-white !important"
-      style={{ marginBottom: '1rem' }}
-    >
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <motion.div
-            className="text-2xl font-bold"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            TradeHub
-          </motion.div>
+    <AppBar position="fixed" sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(10px)' }}>
+      <Toolbar>
+        <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+          TradeHub
+        </Typography>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          {['Home', 'Products', 'Cart', 'Order'].map((item, index) => {
+            if (role === 'admin' && (item === 'Products' || item === 'Cart')) {
+              return null;
+            }
 
-          <div className="hidden md:flex space-x-8">
-            {['Home', 'Products', 'Cart', 'Order'].map((item, index) => {
-              if (role === 'admin' && (item === 'Products' || item === 'Cart')) {
-                return null;
-              }
+            const icons = {
+              Home: <HomeIcon />,
+              Products: <CategoryIcon />,
+              Cart: <ShoppingCartIcon />,
+              Order: <ListAltIcon />
+            };
 
-              return (
-                <motion.a
-                  key={item}
-                  href="#"
-                  className="relative !text-white"
-                  whileHover={{ scale: 1.1 }}
-                  onHoverStart={() => setActiveSection(index)}
-                  onClick={(e) => {
-                    e.preventDefault();  // Prevent the default anchor click behavior
-                    handleNavigation(item);
-                  }}
-                >
+            return (
+              <IconButton
+                key={item}
+                color="inherit"
+                onClick={() => handleNavigation(item)}
+                onMouseEnter={() => setActiveSection(index)}
+                sx={{ position: 'relative' }}
+              >
+                {icons[item]}
+                <Typography variant="body2" sx={{ marginLeft: 1 }}>
                   {item}
-                  {activeSection === index && (
-                    <motion.div
-                      layoutId="navbar-underline"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"
-                    />
-                  )}
-                </motion.a>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-    </motion.nav>
+                </Typography>
+                {activeSection === index && (
+                  <motion.div
+                    layoutId="navbar-underline"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-white"
+                  />
+                )}
+              </IconButton>
+            );
+          })}
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 

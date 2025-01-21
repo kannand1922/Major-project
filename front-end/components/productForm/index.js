@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Box, TextField, Button, CircularProgress } from "@mui/material";
+import { Modal, Box, TextField, Button, CircularProgress, Typography } from "@mui/material";
 import { addProduct } from "../../api/product/productApi"; // Adjust this import if necessary
 
 const ProductForm = ({ categoryName, onClose, columns }) => {
@@ -19,7 +19,6 @@ const ProductForm = ({ categoryName, onClose, columns }) => {
 
   const handleSubmit = async () => {
     const formData = new FormData();
-    // formData.append("categoryName", categoryName);
 
     // Append product data
     Object.keys(productData).forEach((key) => {
@@ -32,14 +31,30 @@ const ProductForm = ({ categoryName, onClose, columns }) => {
     }
 
     // Send the form data to the API
-    await addProduct(categoryName,formData);
+    await addProduct(categoryName, formData);
     onClose(); // Close the modal after submitting
   };
 
   return (
     <Modal open onClose={onClose}>
-      <Box sx={{ padding: 4, backgroundColor: "white", margin: "auto", maxWidth: 400 }}>
-        <h2>Add Product</h2>
+      <Box
+        sx={{
+          padding: 4,
+          backgroundColor: "white",
+          margin: "auto",
+          maxWidth: 400,
+          borderRadius: 2,
+          boxShadow: 3,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 2,
+          marginTop: "64px", // Adjust this value based on your navbar height
+        }}
+      >
+        <Typography variant="h6" sx={{ marginBottom: 2 }}>
+          Add Product
+        </Typography>
 
         {/* Dynamically render fields based on columns */}
         {columns.length === 0 ? (
@@ -65,7 +80,15 @@ const ProductForm = ({ categoryName, onClose, columns }) => {
           sx={{ marginBottom: 2 }}
         />
 
-        <Button variant="contained" color="primary" onClick={handleSubmit}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+          sx={{
+            backgroundColor: "#4caf50", // Mild green color
+            "&:hover": { backgroundColor: "#45a049" },
+          }}
+        >
           Add Product
         </Button>
       </Box>

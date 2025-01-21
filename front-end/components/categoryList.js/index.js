@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, CircularProgress, Box, Typography } from "@mui/material";
+import { Button, CircularProgress, Box, Typography, IconButton } from "@mui/material";
 import { fetchCategories, deleteCategory } from "../../api/product/categoryApi";
 import CategoryForm from "../categoryForm.js";
 import { useRouter } from "next/navigation";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CategoryIcon from "@mui/icons-material/Category";
 
 const CategoryList = () => {
   const router = useRouter();
@@ -43,11 +47,14 @@ const CategoryList = () => {
         alignItems: "center",
         padding: 3,
         minHeight: "100vh",
-        background: "linear-gradient(to right, #7b4397, #dc2430)",
+        background: "linear-gradient(to right, #7b4397, #dc2430)", // Gradient background
+        color: "#fff", // Adjust text color for readability
+        marginTop: "64px", // Adjust this value based on your navbar height
       }}
     >
       <Button
         onClick={handleCreateCategory}
+        startIcon={<AddIcon />}
         sx={{
           backgroundColor: "#4caf50",
           color: "white",
@@ -93,7 +100,7 @@ const CategoryList = () => {
             <Box
               key={index}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "rgba(255, 255, 255, 0.8)", // Semi-transparent background for the container
                 borderRadius: 2,
                 boxShadow: 3,
                 padding: 2,
@@ -109,6 +116,7 @@ const CategoryList = () => {
                 },
               }}
             >
+              <CategoryIcon sx={{ fontSize: 40, color: "#333" }} />
               <Typography
                 onClick={() =>
                   router.push(`/products?categoryName=${category.name}`)
@@ -124,28 +132,28 @@ const CategoryList = () => {
               >
                 {category.name}
               </Typography>
-              <Button
-                variant="outlined"
-                sx={{
-                  backgroundColor: "#007bff",
-                  color: "white",
-                  "&:hover": { backgroundColor: "#0056b3" },
-                }}
-                onClick={() => handleUpdateCategory(category)}
-              >
-                Update
-              </Button>
-              <Button
-                variant="outlined"
-                sx={{
-                  backgroundColor: "#f44336",
-                  color: "white",
-                  "&:hover": { backgroundColor: "#d32f2f" },
-                }}
-                onClick={() => handleDeleteCategory(category.name)}
-              >
-                Delete
-              </Button>
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <IconButton
+                  sx={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    "&:hover": { backgroundColor: "#0056b3" },
+                  }}
+                  onClick={() => handleUpdateCategory(category)}
+                >
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    backgroundColor: "#f44336",
+                    color: "white",
+                    "&:hover": { backgroundColor: "#d32f2f" },
+                  }}
+                  onClick={() => handleDeleteCategory(category.name)}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
             </Box>
           ))}
         </Box>
@@ -153,7 +161,7 @@ const CategoryList = () => {
         <Typography
           sx={{
             fontSize: 18,
-            color: "white",
+            color: "#fff",
             textAlign: "center",
             marginTop: 2,
           }}

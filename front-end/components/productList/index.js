@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, CircularProgress, Modal, TextField, Box, Typography } from "@mui/material";
+import { Button, CircularProgress, Modal, TextField, Box, Typography, IconButton } from "@mui/material";
 import {
   fetchProducts,
   deleteProduct,
@@ -7,6 +7,10 @@ import {
 } from "../../api/product/productApi";
 import { getCategoryColumns } from "../../api/product/categoryApi";
 import ProductForm from "../productForm";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CategoryIcon from "@mui/icons-material/Category";
 
 const ProductList = ({ categoryName }) => {
   const [products, setProducts] = useState([]);
@@ -73,18 +77,20 @@ const ProductList = ({ categoryName }) => {
         flexDirection: "column",
         alignItems: "center",
         padding: 4,
-        bgcolor: "background.default",
-        background: "linear-gradient(to right, #7b4397, #dc2430)",
-        color: "white",
+        background: "linear-gradient(to right, #7b4397, #dc2430)", // Gradient background
+        color: "white", // Adjust text color for readability
+        marginTop: "64px", // Adjust this value based on your navbar height
       }}
     >
       <Button
         variant="contained"
-        color="primary"
+        startIcon={<AddIcon />}
         onClick={handleAddProduct}
         sx={{
           marginBottom: 2,
           fontWeight: "bold",
+          backgroundColor: "#4caf50", // Mild green color
+          "&:hover": { backgroundColor: "#45a049" },
         }}
       >
         Add Product
@@ -122,7 +128,7 @@ const ProductList = ({ categoryName }) => {
                 display: "flex",
                 flexDirection: "column",
                 gap: 1,
-                bgcolor: "white",
+                bgcolor: "rgba(255, 255, 255, 0.8)", // Semi-transparent background for the container
                 color: "black",
               }}
             >
@@ -145,20 +151,26 @@ const ProductList = ({ categoryName }) => {
               </Box>
 
               <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: 2 }}>
-                <Button
-                  variant="outlined"
-                  color="primary"
+                <IconButton
+                  sx={{
+                    backgroundColor: "#007bff",
+                    color: "white",
+                    "&:hover": { backgroundColor: "#0056b3" },
+                  }}
                   onClick={() => handleEditProduct(product)}
                 >
-                  Edit
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="secondary"
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  sx={{
+                    backgroundColor: "#f44336",
+                    color: "white",
+                    "&:hover": { backgroundColor: "#d32f2f" },
+                  }}
                   onClick={() => handleDeleteProduct(product.id)}
                 >
-                  Delete
-                </Button>
+                  <DeleteIcon />
+                </IconButton>
               </Box>
             </Box>
           ))}
