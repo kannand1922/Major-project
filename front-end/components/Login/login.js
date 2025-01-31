@@ -20,7 +20,12 @@ const Login = () => {
       console.log("Login Successful:", response);
       localStorage.setItem("userId",response?.user?.id)
       localStorage.setItem("role",response?.user?.role)
+      document.cookie = `userId=${response?.user?.id}; path=/`;
+      document.cookie = `role=${response?.user?.role}; path=/`;
+      if(response?.user?.role==1)
       router.push("/category"); // Redirect on success
+    else
+    router.push("/userCategory"); // Redirect on success
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     }

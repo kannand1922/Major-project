@@ -26,11 +26,11 @@ const UserCategoryList = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-600 to-red-500 p-8 pt-24" style={{padding:"130px"}}>
-      <div className="max-w-6xl mx-auto">
+    <div className="flex flex-col items-center  min-h-screen bg-gradient-to-r from-purple-600 to-red-500 p-8 pt-24">
+      <div className="max-w-4xl w-full text-center">
         {/* Header with floating animation */}
-        <div className="flex items-center justify-center mb-12 animate-float">
-          <Layers className="w-10 h-10 text-white mr-3" />
+        <div className="flex flex-col items-center justify-center mb-12 animate-float">
+          <Layers className="w-12 h-12 text-white mb-2" />
           <h1 className="text-4xl font-bold text-white">Categories</h1>
         </div>
 
@@ -42,33 +42,31 @@ const UserCategoryList = () => {
             </div>
           </div>
         ) : categories.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {categories.map((category, index) => (
-              <div
-                key={index}
-                onClick={() => router.push(`/userProduct?categoryName=${category.name}`)}
-                className={`
-                  bg-white rounded-xl p-6 cursor-pointer
-                  transform transition-all duration-300
-                  hover:scale-105 hover:shadow-2xl
-                  group relative overflow-hidden
-                  animate-[slideUp_0.5s_ease-out_${index * 0.1}s]
-                `}
-              >
-                {/* Background gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 to-red-500/0 group-hover:from-purple-500/10 group-hover:to-red-500/10 transition-all duration-300" />
-                
-                {/* Content */}
-                <div className="relative z-10">
-                  <h2 className="text-xl font-semibold text-gray-800 group-hover:text-purple-600 transition-colors duration-300 text-center">
-                    {category.name}
-                  </h2>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {categories.map((category, index) => (
+                <div
+                  key={index}
+                  onClick={() => router.push(`/userProduct?categoryName=${category.name}`)}
+                  className={`
+                    bg-white rounded-xl p-6 cursor-pointer
+                    transform transition-all duration-300
+                    hover:scale-105 hover:shadow-2xl
+                    group relative overflow-hidden text-center
+                    animate-[slideUp_0.5s_ease-out_${index * 0.1}s]
+                  `}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 to-red-500/0 group-hover:from-purple-500/10 group-hover:to-red-500/10 transition-all duration-300" />
                   
-                  {/* Decorative elements */}
-                  <div className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  <div className="relative z-10">
+                    <h2 className="text-xl font-semibold text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
+                      {category.name}
+                    </h2>
+                    <div className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         ) : (
           <div className="text-center animate-fadeIn">

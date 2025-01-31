@@ -10,7 +10,6 @@ const UserProductList = ({ categoryName }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Ensures this only runs on the client
     setIsClient(true);
     getProducts();
   }, [categoryName]);
@@ -36,11 +35,11 @@ const UserProductList = ({ categoryName }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-red-500 p-8" style={{paddingTop:"100px"}}>
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-purple-600 to-red-500 pt-32">
+      <div className="max-w-7xl w-full text-center">
         <div className="flex items-center justify-center mb-12">
           <Package className="w-10 h-10 text-white mr-3" />
-          <h1 className="text-4xl font-bold text-white">
+          <h1 className="text-4xl font-bold text-white ">
             {categoryName} Products
           </h1>
         </div>
@@ -53,7 +52,7 @@ const UserProductList = ({ categoryName }) => {
             </div>
           </div>
         ) : products?.data?.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="flex flex-wrap justify-center items-center gap-10">
             {products?.data?.map((product, index) => (
               <div
                 key={product.id}
@@ -63,11 +62,12 @@ const UserProductList = ({ categoryName }) => {
                 onMouseEnter={() => setActiveCard(product.id)}
                 onMouseLeave={() => setActiveCard(null)}
               >
-                <div className="relative overflow-hidden aspect-square">
+                <div className="relative ">
                   <img
                     src={product.image_url}
                     alt={product.name}
-                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    style={{width:"300px",height:"300px"}}
+                    className="w-100 h-200 object-cover transform group-hover:scale-110 transition-transform duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -115,7 +115,7 @@ const UserProductList = ({ categoryName }) => {
             ))}
           </div>
         ) : (
-          <div className="text-center">
+          <div className="text-center flex flex-col justify-center items-center h-64">
             <p className="text-xl text-white">
               No products found in {categoryName}.
             </p>

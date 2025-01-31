@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ShoppingCart, Plus, Minus } from "lucide-react";
-import { fetchCartItems, updateCartItem, orderPayment, verifyPayment, createOrder, fetchAddresses } from "../../api/user/index.js";
+import {
+  fetchCartItems,
+  updateCartItem,
+  orderPayment,
+  verifyPayment,
+  createOrder,
+  fetchAddresses,
+} from "../../api/user/index.js";
 import { useRouter } from "next/navigation";
 
 const Cart = () => {
@@ -8,7 +15,7 @@ const Cart = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
   const [paymentLoading, setPaymentLoading] = useState(false);
-  const [shake, setShake] = useState('');
+  const [shake, setShake] = useState("");
 
   const navigate = useRouter();
   const user_id = localStorage.getItem("userId");
@@ -31,8 +38,8 @@ const Cart = () => {
   };
 
   const handleCartAction = async (categoryId, productId, action) => {
-    setShake('shake');
-    setTimeout(() => setShake(''), 500);
+    setShake("shake");
+    setTimeout(() => setShake(""), 500);
     try {
       setLoading(true);
       await updateCartItem({ categoryId, productId, action });
@@ -56,7 +63,7 @@ const Cart = () => {
         initPayment(response.data);
       }
     } catch (error) {
-      navigate.push("/address");
+      // navigate.push("/address");
       console.log(error);
     } finally {
       setPaymentLoading(false);
@@ -101,11 +108,11 @@ const Cart = () => {
     try {
       const orderData = {
         user_id,
-        items: cartItems.map(item => ({
-          product_id: item.product_id,
+        items: cartItems.map((item) => ({
+          product_id: item.products.id,
           category_id: item.category_id,
           quantity: item.count,
-          price: item.price
+          price: item.price,
         })),
         total_price: totalPrice,
       };
@@ -120,7 +127,10 @@ const Cart = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 bg-gradient-to-br from-blue-50 to-indigo-50" style={{padding:"130px"}}>
+    <div
+      className="min-h-screen p-8 bg-gradient-to-br from-blue-50 to-indigo-50"
+      style={{ padding: "130px" }}
+    >
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-center mb-8 animate-bounce">
           <ShoppingCart className="w-8 h-8 mr-2 text-indigo-600" />
@@ -136,35 +146,68 @@ const Cart = () => {
         ) : cartItems.length > 0 ? (
           <div className="space-y-4">
             {cartItems.map((item, index) => {
-              const total = item.price ? item.price * item.count : 0;
+              const product = item.products; // Access the dynamic product object
+              const total = product.price ? product.price * item.count : 0;
+
               return (
                 <div
-                  key={`${item.category_id}-${item.product_id}`}
+                  key={`${item.category_id}-${product.id}`}
                   className={`bg-white rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg ${
-                    shake === 'shake' ? 'animate-[shake_0.5s_ease-in-out]' : ''
-                  } ${index === 0 ? 'animate-[slideDown_0.5s_ease-out]' : ''}`}
+                    shake === "shake" ? "animate-[shake_0.5s_ease-in-out]" : ""
+                  } ${index === 0 ? "animate-[slideDown_0.5s_ease-out]" : ""}`}
                 >
                   <div className="flex items-center justify-between flex-wrap gap-4">
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+
                     <div className="space-y-2">
                       <h2 className="text-xl font-semibold hover:text-indigo-600 transition-colors">
-                        {item.product_name}
+                        {product.name}
                       </h2>
-                      <p className="text-gray-600">Category: {item.category_name}</p>
-                      <p className="text-indigo-600 font-medium">₹{item.price}</p>
+                      <p className="text-gray-600">
+                        Category: {item.category_name}
+                      </p>
+                      <p className="text-indigo-600 font-medium">
+                        ₹{product.price}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 space-y-2">
+                      {Object.keys(product)
+                        .filter((key) => key !== "name" && key !== "image_url" && key!=="id") // Filter out  specific keys
+                        .map((key) => (
+                          <p key={key} className="text-gray-500">
+                            {key.replace(/_/g, " ").toUpperCase()}:{" "}
+                            {product[key]}
+                          </p>
+                        ))}
                     </div>
 
                     <div className="flex items-center space-x-4">
                       <button
-                        onClick={() => handleCartAction(item.category_id, item.product_id, 'REMOVE')}
+                        onClick={() =>
+                          handleCartAction(
+                            item.category_id,
+                            product.id,
+                            "REMOVE"
+                          )
+                        }
                         className="p-2 rounded-full hover:bg-red-100 transition-colors group"
                       >
                         <Minus className="w-5 h-5 text-red-500 group-hover:scale-110 transition-transform" />
                       </button>
-                      
-                      <span className="w-8 text-center font-medium">{item.count}</span>
-                      
+
+                      <span className="w-8 text-center font-medium">
+                        {item.count}
+                      </span>
+
                       <button
-                        onClick={() => handleCartAction(item.category_id, item.product_id, 'ADD')}
+                        onClick={() =>
+                          handleCartAction(item.category_id, product.id, "ADD")
+                        }
                         className="p-2 rounded-full hover:bg-green-100 transition-colors group"
                       >
                         <Plus className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" />
@@ -213,24 +256,47 @@ const Cart = () => {
 
       <style jsx global>{`
         @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-5px); }
-          75% { transform: translateX(5px); }
+          0%,
+          100% {
+            transform: translateX(0);
+          }
+          25% {
+            transform: translateX(-5px);
+          }
+          75% {
+            transform: translateX(5px);
+          }
         }
-        
+
         @keyframes slideDown {
-          from { transform: translateY(-20px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
+          from {
+            transform: translateY(-20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
         }
-        
+
         @keyframes slideUp {
-          from { transform: translateY(20px); opacity: 0; }
-          to { transform: translateY(0); opacity: 1; }
+          from {
+            transform: translateY(20px);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
         }
-        
+
         @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
         }
       `}</style>
     </div>

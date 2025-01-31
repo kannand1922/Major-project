@@ -7,12 +7,12 @@ import Navbar from "../../../components/Navbar/index.js";
 const CategoryPage = () => {
 const router = useRouter();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      router.push('/signup'); 
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) {
+  //     router.push('/signup'); 
+  //   }
+  // }, []);
   return (
     <div>
       <CategoryList/>

@@ -2,11 +2,12 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useRouter } from "next/navigation";
-import { AppBar, Toolbar, Typography, IconButton, Box } from "@mui/material";
+import { AppBar, Toolbar, Typography, IconButton, Box, Button } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import CategoryIcon from '@mui/icons-material/Category';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -18,12 +19,13 @@ const Navbar = () => {
     setRole(userRole);
   }, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      router.push('/login'); // Redirect to login if no token
-    }
-  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('role');
+    document.cookie = 'userId=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+  document.cookie = 'role=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+    router.push('/login'); // Redirect to login page
+  };
 
   const handleNavigation = (item) => {
     if (role === '1') {
@@ -55,7 +57,6 @@ const Navbar = () => {
         </Typography>
         <Box sx={{ display: 'flex', gap: 2 }}>
           {['Home', 'Products', 'Cart', 'Order'].map((item, index) => {
-            // Hide Cart for role 1
             if (role === '1' && item === 'Cart') {
               return null;
             }
@@ -89,6 +90,15 @@ const Navbar = () => {
             );
           })}
         </Box>
+        {/* Logout Button */}
+        <Button
+          color="inherit"
+          startIcon={<LogoutIcon />}
+          onClick={handleLogout}
+          sx={{ marginLeft: 2 }}
+        >
+          Logout
+        </Button>
       </Toolbar>
     </AppBar>
   );

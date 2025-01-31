@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 function Page() {
 const router = useRouter();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      router.push('/signup'); // Redirect to signup if no token
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) {
+  //     router.push('/signup'); // Redirect to signup if no token
+  //   }
+  // }, []);
   const searchParams = useSearchParams();
   const categoryName = searchParams.get("categoryName");
 
