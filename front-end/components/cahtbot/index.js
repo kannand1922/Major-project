@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send } from 'lucide-react';
 
 const SQLGeminiChatBot = ({ 
-  geminiApiKey="AIzaSyABXSQLb4Rxrn8k0BsLeMxRAQg8YH6Bc3g",
+  geminiApiKey="",
   sqlFilePath = "/home/dell/videos/mysql.sql"
 }) => {
   const [isOpen, setIsOpen] = useState(false);
