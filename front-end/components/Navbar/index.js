@@ -53,7 +53,7 @@ const Navbar = () => {
     <AppBar position="fixed" sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', backdropFilter: 'blur(10px)' }}>
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
-          TradeHub
+          Siva Electricals
         </Typography>
         <Box sx={{ display: 'flex', gap: 2 }}>
           {['Home', 'Products', 'Cart', 'Order'].map((item, index) => {

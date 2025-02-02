@@ -63,7 +63,7 @@ const Cart = () => {
         initPayment(response.data);
       }
     } catch (error) {
-      // navigate.push("/address");
+       navigate.push("/address");
       console.log(error);
     } finally {
       setPaymentLoading(false);
@@ -164,15 +164,15 @@ const Cart = () => {
                     />
 
                     <div className="space-y-2">
-                      <h2 className="text-xl font-semibold hover:text-indigo-600 transition-colors">
+                      {/* <h2 className="text-xl font-semibold hover:text-indigo-600 transition-colors">
                         {product.name}
-                      </h2>
+                      </h2> */}
                       <p className="text-gray-600">
                         Category: {item.category_name}
                       </p>
-                      <p className="text-indigo-600 font-medium">
-                        ₹{product.price}
-                      </p>
+                      {/* <p className="text-indigo-600 font-medium">
+                        ₹{item.price}
+                      </p> */}
                     </div>
 
                     <div className="mt-4 space-y-2">
@@ -216,7 +216,7 @@ const Cart = () => {
 
                     <div className="text-right flex-grow">
                       <p className="text-lg font-semibold text-indigo-600">
-                        Total: ₹{total}
+                        Total: ₹{totalPrice}
                       </p>
                     </div>
                   </div>
