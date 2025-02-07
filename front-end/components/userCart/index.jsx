@@ -9,8 +9,10 @@ import {
   fetchAddresses,
 } from "../../api/user/index.js";
 import { useRouter } from "next/navigation";
-
+import { useAlert } from "../../src/app/context/alert/index.js";
 const Cart = () => {
+  const { showAlert } = useAlert();
+  console.log(showAlert,"LKLKL")
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -44,7 +46,9 @@ const Cart = () => {
       setLoading(true);
       await updateCartItem({ categoryId, productId, action });
       getCartItems();
+      showAlert("Succcessfully updated to cart", "success")
     } catch (error) {
+      showAlert(error.message,"error")
       console.error(`Error updating cart with action ${action}:`, error);
     } finally {
       setLoading(false);
@@ -121,6 +125,7 @@ const Cart = () => {
       if (response.orderId) {
         console.log("Order created successfully!");
       }
+      showAlert("Order created successfully!","success")
     } catch (error) {
       console.error("Error creating order:", error);
     }

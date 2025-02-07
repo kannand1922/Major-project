@@ -33,15 +33,19 @@ const Navbar = () => {
         router.push('/category');
       } else if (item === 'Order') {
         router.push('/order');
+      }  else if (item === 'Dashboard') {
+        router.push('/dashboard');
       } else {
         router.push('/');
       }
     } else {
+
       if (item === 'Products') {
         router.push('/userCategory');
       } else if (item === 'Cart') {
         router.push('/userCart');
-      } else if (item === 'Order') {
+      }
+      else if (item === 'Order') {
         router.push('/userOrder');
       } else {
         router.push('/');
@@ -56,8 +60,11 @@ const Navbar = () => {
           Siva Electricals
         </Typography>
         <Box sx={{ display: 'flex', gap: 2 }}>
-          {['Home', 'Products', 'Cart', 'Order'].map((item, index) => {
+          {['Home', 'Products', 'Cart', 'Order','Dashboard'].map((item, index) => {
             if (role === '1' && item === 'Cart') {
+              return null;
+            }
+            if (role === '2' && item === 'Dashboard') {
               return null;
             }
 

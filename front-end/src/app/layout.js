@@ -5,7 +5,8 @@ import "./globals.css";
 import Navbar from "../../components/Navbar";
 import SQLGeminiChatBot from "../../components/cahtbot/index";
 import { usePathname } from "next/navigation";
-
+import {AlertProvider} from "../app/context/alert/index"
+import Alert from "../app/alert/index"
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,15 +25,19 @@ const geistMono = Geist_Mono({
 export default function RootLayout({ children }) {
   const pathname = usePathname();
 
-  const hideLayout = pathname === "/login"; // Hide Navbar & ChatBot on the login page
+  const hideLayout = pathname === ("/login" || "/signup"); // Hide Navbar & ChatBot on the login page
 
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <AlertProvider>
         {!hideLayout && <Navbar />}
         {!hideLayout && <SQLGeminiChatBot />}
         {children}
+         <Alert />
+        </AlertProvider>
       </body>
+
     </html>
   );
 }
