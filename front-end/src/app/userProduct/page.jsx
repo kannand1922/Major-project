@@ -1,15 +1,22 @@
-'use client'
-import React from 'react'
-import UserProductList from '../../../components/userProduct'
+"use client";
+
+import React, { Suspense } from "react";
+import UserProductList from "../../../components/userProduct";
 import { useSearchParams } from "next/navigation";
 
-function page() {
-    const searchParams = useSearchParams();
-    const categoryName = searchParams.get("categoryName");
-  
+function Page() {
   return (
-    <div><UserProductList categoryName={categoryName}/></div>
-  )
+    <Suspense fallback={<div>Loading...</div>}>
+      <UserProductListWrapper />
+    </Suspense>
+  );
 }
 
-export default page
+function UserProductListWrapper() {
+  const searchParams = useSearchParams();
+  const categoryName = searchParams.get("categoryName");
+
+  return <UserProductList categoryName={categoryName} />;
+}
+
+export default Page;

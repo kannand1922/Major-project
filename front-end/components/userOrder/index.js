@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { fetchUserOrders } from "../../api/user";
 import { Download, Package, User, MapPin, ShoppingBag } from "lucide-react";
-
+import { useAlert } from "../../src/app/context/alert/index.js";
 const OrderDetails = () => {
+  const { showAlert } = useAlert();
   const [orderDetails, setOrderDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedOrder, setExpandedOrder] = useState(null);
 
-  const userId = localStorage.getItem("userId");
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    // Access localStorage inside useEffect
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {

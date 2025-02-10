@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { updateCartItem, fetchProducts } from "../../api/user";
 import { Package, Plus, Minus, ShoppingCart } from "lucide-react";
-
+import { useAlert } from "../../src/app/context/alert/index.js";
 const UserProductList = ({ categoryName }) => {
+  const { showAlert } = useAlert();
+
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [activeCard, setActiveCard] = useState(null);
@@ -26,9 +28,11 @@ const UserProductList = ({ categoryName }) => {
       setLoading(true);
       const categoryId = products.categoryId;
       await updateCartItem({ categoryId, productId, action });
+      showAlert("cart updated successfully")
       getProducts();
     } catch (error) {
       console.error(`Error performing ${action} on cart:`, error);
+      showAlert(error.message)
     } finally {
       setLoading(false);
     }

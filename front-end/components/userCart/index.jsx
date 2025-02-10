@@ -19,8 +19,14 @@ const Cart = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [shake, setShake] = useState("");
 
-  const navigate = useRouter();
-  const user_id = localStorage.getItem("userId");
+  const navigate = useRouter();  const [user_id, setUserId] = useState(null);
+  useEffect(() => {
+    // Access localStorage inside useEffect
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
   useEffect(() => {
     getCartItems();
@@ -127,6 +133,7 @@ const Cart = () => {
       }
       showAlert("Order created successfully!","success")
     } catch (error) {
+      showAlert(error.message)
       console.error("Error creating order:", error);
     }
   };

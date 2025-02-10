@@ -14,7 +14,7 @@ import {
   Building,
   ChevronRight
 } from 'lucide-react';
-
+import GoogleMapComponent from "../../../components/map/index"
 const InfoPages = () => {
   const [activePage, setActivePage] = useState('about');
 
@@ -255,6 +255,9 @@ const InfoPages = () => {
         </div>
       </div>
 
+<div>
+<GoogleMapComponent />
+</div>
       {/* Page Content */}
       {activePage === 'about' ? renderAboutPage() : renderContactPage()}
 

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { fetchOrders } from "../../../api/product/productApi";
 import { Download, Package, User, MapPin, ShoppingBag } from "lucide-react";
@@ -7,8 +7,14 @@ const OrderDetails = () => {
   const [orderDetails, setOrderDetails] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const userId = localStorage.getItem("userId");
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    // Access localStorage inside useEffect
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {

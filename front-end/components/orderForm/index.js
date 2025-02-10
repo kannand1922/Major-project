@@ -1,3 +1,4 @@
+"use cient"
 import React, { useState, useEffect } from "react";
 import { Box, TextField, Button, Typography, Grid } from "@mui/material";
 import { addAddress } from "../../api/user";
@@ -13,7 +14,15 @@ const AddressForm = ({ handleAddressSuccess }) => {
     pincode: '',
   });
 
-  const userId = localStorage.getItem('userId');
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    // Access localStorage inside useEffect
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

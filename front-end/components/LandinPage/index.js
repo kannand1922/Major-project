@@ -12,8 +12,10 @@ import {
   Fan,
   Wrench
 } from 'lucide-react';
-
+import { useRouter } from "next/navigation";
 const LandingPage = () => {
+  const router = useRouter();
+
   const productCategories = [
     {
       name: 'Electrical Accessories',
@@ -67,7 +69,14 @@ const LandingPage = () => {
       icon: <Cable className="w-6 h-6" />
     }
   ];
-
+  const handleNavigation = () => {
+    const roleId = localStorage.getItem("role"); // Retrieve role from localStorage
+    if (roleId === "1") {
+      router.push("/category");
+    } else {
+      router.push("/userCategory");
+    }
+  };
   return (
     <div className="min-h-screen bg-slate-900 text-white overflow-x-hidden">
       {/* Hero Section */}
@@ -84,11 +93,11 @@ const LandingPage = () => {
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <button className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold flex items-center justify-center space-x-2 hover:scale-105 transition-transform">
                 <Phone className="w-5 h-5" />
-                <span>Contact Us</span>
+                <span onClick={()=>router.push("/aboutus")}>Contact Us</span>
               </button>
               <button className="bg-slate-900 text-white px-8 py-4 rounded-full font-semibold flex items-center justify-center space-x-2 hover:scale-105 transition-transform">
                 <Clock className="w-5 h-5" />
-                <span>View Products</span>
+                <span onClick={handleNavigation}>View Products</span>
               </button>
             </div>
           </div>
@@ -188,7 +197,7 @@ const LandingPage = () => {
           <p className="text-xl mb-8">Experience our wide range of products in person</p>
           <button className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold flex items-center space-x-2 mx-auto hover:scale-105 transition-transform">
             <Phone className="w-5 h-5" />
-            <span>Contact Now</span>
+            <span onClick={()=>router.push("/aboutus")}>Contact Now</span>
           </button>
         </div>
       </div>
