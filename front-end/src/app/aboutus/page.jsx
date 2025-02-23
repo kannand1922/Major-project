@@ -22,47 +22,47 @@ const InfoPages = () => {
     {
       icon: <Phone className="w-6 h-6" />,
       title: "Phone",
-      details: ["+91 98765 43210", "+91 98765 43211"],
+      details: ["+91 98659 75838"],
       color: "bg-blue-500"
     },
     {
       icon: <Mail className="w-6 h-6" />,
       title: "Email",
-      details: ["info@sivaelectricals.com", "support@sivaelectricals.com"],
+      details: ["sivaelectricalsnkdr@gmail.com"],
       color: "bg-purple-500"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Address",
-      details: ["123 Main Street", "Chennai, Tamil Nadu 600001"],
+      details: ["2/285, N.R.N.Complex Main Road, Nathakadaiyur, Tamil Nadu - 638108"],
       color: "bg-green-500"
     },
     {
       icon: <Clock className="w-6 h-6" />,
       title: "Business Hours",
-      details: ["Monday - Saturday: 9:00 AM - 8:00 PM", "Sunday: 10:00 AM - 6:00 PM"],
+      details: ["Monday - Saturday: 9:00 AM - 9:00 PM", "Sunday: Leave"],
       color: "bg-amber-500"
     }
   ];
 
   const milestones = [
     {
-      year: "1995",
+      year: "1998",
       title: "Founded",
-      description: "Started as a small electrical shop in Chennai"
+      description: "Started as a small electrical shop in Nathakadaiyur"
     },
     {
       year: "2005",
       title: "Expansion",
-      description: "Opened our first major showroom and warehouse"
+      description: "Opened our first major shop with variety of products and accessories"
     },
     {
       year: "2015",
       title: "Growth",
-      description: "Became one of the leading electrical suppliers in South India"
+      description: "Opened a new branch in Kangeyam"
     },
     {
-      year: "2023",
+      year: "2025",
       title: "Innovation",
       description: "Launched our premium product line and e-commerce platform"
     }
@@ -130,7 +130,7 @@ const InfoPages = () => {
             <Building className="w-16 h-16 mx-auto mb-6 text-blue-500" />
             <h2 className="text-3xl font-bold mb-6">Our Story</h2>
             <p className="text-gray-300 text-lg leading-relaxed">
-              Siva Electricals has been a trusted name in the electrical and hardware industry for over 25 years. 
+              Siva Electricals has been a trusted name in the electrical and hardware industry for over 27 years. 
               What started as a small electrical shop has grown into one of the region's leading suppliers of 
               electrical accessories, premium paints, and quality hardware solutions.
             </p>
@@ -249,7 +249,7 @@ const InfoPages = () => {
           </h1>
           <p className="text-xl mb-4">
             {activePage === 'about' 
-              ? 'Building Trust Through Quality Since 1995'
+              ? 'Building Trust Through Quality Since 1998'
               : 'Get in touch with our expert team'}
           </p>
         </div>

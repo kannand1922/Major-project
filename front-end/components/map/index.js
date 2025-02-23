@@ -6,8 +6,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 11.0859036, // Updated latitude
-  lng: 77.6630545, // Updated longitude
+  lat: 11.0859383, // Updated latitude
+  lng: 77.6630683, // Updated longitude
 };
 
 const GoogleMapComponent = () => {
